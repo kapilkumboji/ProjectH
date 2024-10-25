@@ -1,3 +1,7 @@
+// src/app/page.js
+
+"use client"; // Add this line to mark the file as a client component
+
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
@@ -7,14 +11,16 @@ export default function Home() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socket = io('http://localhost:5000');  // Connect to the Express backend
+    const socket = io('http://localhost:5000'); // Connect to the Express backend
     setSocket(socket);
 
     socket.on('botMessage', (message) => {
       setChatHistory((prev) => [...prev, { user: false, text: message }]);
     });
 
-    return () => socket.disconnect();
+    return () => {
+      socket.disconnect(); // Clean up on component unmount
+    };
   }, []);
 
   const sendMessage = () => {
@@ -56,6 +62,9 @@ export default function Home() {
           height: 400px;
           overflow-y: auto;
           margin-bottom: 20px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 10px;
         }
         .user-message {
           text-align: right;

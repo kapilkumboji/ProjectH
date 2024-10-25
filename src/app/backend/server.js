@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { Configuration, OpenAIApi } = require('openai');
 const http = require('http');
 const { Server } = require('socket.io');
-const Chat = require('./models/Chat');
+const Chat = require('../models/Chat');
 
 const app = express();
 app.use(bodyParser.json());
